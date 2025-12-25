@@ -47,6 +47,34 @@ html {
   }
 }
 
+/* Animation for moving elements horizontally */
+@keyframes moveHorizontal {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(50px);
+  }
+}
+
+/* Animation for circular movement */
+@keyframes moveInCircle {
+  0% {
+    transform: rotate(0deg) translateX(30px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(30px) rotate(-360deg);
+  }
+}
+
+.animate-moveHorizontal {
+  animation: moveHorizontal 10s ease-in-out infinite;
+}
+
+.animate-moveInCircle {
+  animation: moveInCircle 20s linear infinite;
+}
+
 
 
 

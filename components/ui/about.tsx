@@ -2,9 +2,9 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconCalendar, IconBooks, IconCode } from "@tabler/icons-react";
+import { IconCalendar, IconBooks } from "@tabler/icons-react";
 
-import { educationData, aboutContent, skills } from "@/data";
+import { educationData, aboutContent } from "@/data";
 
 export function About() {
   return (
@@ -40,99 +40,67 @@ export function About() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-          {/* Skills Section */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            {/* Skills */}
-            <div className="mt-8">
-              <h4 className="text-lg md:text-xl font-semibold text-white mb-3 md:mb-4 flex items-center gap-2">
-                <IconCode size={18} className="text-accentColors-primary" />
-                {aboutContent.skillsTitle}
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill, index) => (
-                  <motion.span
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+        {/* Education Timeline - Centered single column */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key="education"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-8"
+            >
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-6 md:mb-8 flex items-center justify-center gap-2">
+                <IconBooks size={22} className="text-accentColors-highlight" />
+                {aboutContent.educationTitle}
+              </h3>
+              {educationData.map((edu, index) => (
+                <div
+                  key={index}
+                  className="relative pl-10 border-l border-zinc-700"
+                >
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="text-sm px-3 py-1.5 bg-zinc-800/80 text-zinc-200 rounded-full border border-zinc-700 hover:border-accentColors-primary/50 hover:bg-zinc-800 transition-all duration-300 shadow-sm hover:shadow-accentColors-primary/20"
+                    transition={{ duration: 0.4, delay: 0.1 * index }}
+                    className="absolute left-[-8px] top-0 w-4 h-4 rounded-full bg-gradient-to-r from-accentColors-accent to-accentColors-highlight shadow-sm shadow-accentColors-accent/50"
+                  ></motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 * index }}
+                    className="bg-zinc-800/50 p-6 rounded-lg border border-zinc-700/50 hover:border-accentColors-accent/30 transition-all duration-300 hover:shadow-lg hover:shadow-accentColors-accent/5"
                   >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Education Timeline */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key="education"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-8"
-              >
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 flex items-center gap-2">
-                  <IconBooks size={22} className="text-accentColors-highlight" />
-                  {aboutContent.educationTitle}
-                </h3>
-                {educationData.map((edu, index) => (
-                  <div
-                    key={index}
-                    className="relative pl-10 border-l border-zinc-700"
-                  >
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: 0.1 * index }}
-                      className="absolute left-[-8px] top-0 w-4 h-4 rounded-full bg-gradient-to-r from-accentColors-accent to-accentColors-highlight shadow-sm shadow-accentColors-accent/50"
-                    ></motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.2 * index }}
-                      className="bg-zinc-800/50 p-6 rounded-lg border border-zinc-700/50 hover:border-accentColors-accent/30 transition-all duration-300 hover:shadow-lg hover:shadow-accentColors-accent/5"
-                    >
-                      <h4 className="text-base sm:text-lg font-semibold text-white">
-                        {edu.title}
-                      </h4>
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-accentColors-secondary">
-                          {edu.institution}
-                        </span>
-                        <span className="text-zinc-500 text-sm flex items-center gap-1">
-                          <IconCalendar size={14} />
-                          {edu.duration}
-                        </span>
-                      </div>
-                      <p className="text-zinc-400 text-xs sm:text-sm">
-                        {edu.description}
-                      </p>
-                    </motion.div>
-                  </div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
-        </div>
+                    <h4 className="text-base sm:text-lg font-semibold text-white">
+                      {edu.title}
+                    </h4>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-accentColors-secondary">
+                        {edu.institution}
+                      </span>
+                      <span className="text-zinc-500 text-sm flex items-center gap-1">
+                        <IconCalendar size={14} />
+                        {edu.duration}
+                      </span>
+                    </div>
+                    <p className="text-zinc-400 text-xs sm:text-sm">
+                      {edu.description}
+                    </p>
+                  </motion.div>
+                </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

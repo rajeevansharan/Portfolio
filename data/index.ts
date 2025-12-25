@@ -63,6 +63,23 @@ interface Education {
   description: string;
 }
 
+interface Skill {
+  name: string;
+  level: number; // 0-100
+}
+
+interface SkillCategory {
+  category: string;
+  icon: string; // Icon name as string
+  skills: Skill[];
+}
+
+interface SkillsContent {
+  sectionTitle: string;
+  description: string;
+  footer: string;
+}
+
 interface AboutContent {
   sectionTitle: string;
   subtitle: string;
@@ -195,6 +212,7 @@ export const heroContent: HeroContent = {
 export const navItems: NavItem[] = [
   { name: "Home", href: "#home", icon: "IconHome" },
   { name: "Projects", href: "#projects", icon: "IconBriefcase" },
+  { name: "Skills", href: "#skills", icon: "IconCode" },
   { name: "About", href: "#about", icon: "IconUser" },
   { name: "Contact", href: "#contact", icon: "IconMessage" }, 
 ];
@@ -304,6 +322,60 @@ export const skills = [
   "Java", "Next.js", "TypeScript", "JavaScript", 
   "HTML/CSS", "Tailwind CSS", "Node.js", "Daisy UI", 
   "React", "UI/UX Design", "Figma"
+];
+
+// Skills Section Content
+export const skillsContent: SkillsContent = {
+  sectionTitle: "Technical Skills",
+  description: "A comprehensive overview of my technical expertise and proficiency across various technologies, frameworks, and tools that I use to build modern, scalable applications.",
+  footer: "Always learning and exploring new technologies to stay ahead in the ever-evolving tech landscape."
+};
+
+// Skills Data - Organized by categories
+export const skillsData: SkillCategory[] = [
+  {
+    category: "Frontend Development",
+    icon: "IconCode",
+    skills: [
+      { name: "React", level: 90 },
+      { name: "Next.js", level: 85 },
+      { name: "TypeScript", level: 85 },
+      { name: "JavaScript", level: 90 },
+      { name: "HTML", level: 95 },
+      { name: "CSS", level: 90 },
+      { name: "Tailwind CSS", level: 90 },
+      { name: "Bootstrap", level: 80 },
+    ]
+  },
+  {
+    category: "Backend Development",
+    icon: "IconServer",
+    skills: [
+      { name: "Node.js", level: 85 },
+      { name: "Java", level: 80 },
+      { name: "Python", level: 75 },
+      { name: "REST API", level: 85 },
+      { name: "MySQL", level: 80 },
+      { name: "PostgreSQL", level: 75 },
+      { name: "MongoDB", level: 70 },
+    ]
+  },
+  {
+    category: "Design & UI/UX",
+    icon: "IconPalette",
+    skills: [
+      { name: "Figma", level: 85 },
+    ]
+  },
+  {
+    category: "Tools & DevOps",
+    icon: "IconDevices",
+    skills: [
+      { name: "Git", level: 90 },
+      { name: "GitHub", level: 90 },
+      { name: "Docker", level: 70 },
+    ]
+  }
 ];
 
 // About section content
