@@ -3,29 +3,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import {
-  IconBrandReact,
-  IconBrandNextjs,
-  IconBrandTypescript,
-  IconBrandJavascript,
-  IconBrandHtml5,
-  IconBrandCss3,
-  IconBrandTailwind,
-  IconBrandNodejs,
-  IconBrandPython,
-  IconBrandGit,
-  IconBrandGithub,
-  IconBrandDocker,
-  IconBrandFigma,
-  IconDatabase,
   IconCode,
   IconDevices,
   IconPalette,
   IconServer,
-  IconBrandMysql,
-  IconBrandPostgresql,
-  IconBrandBootstrap,
-  IconBrandJava,
-  IconApi,
 } from "@tabler/icons-react";
 
 import { skillsData, skillsContent } from "@/data";
@@ -44,34 +25,6 @@ const iconMap: {
 };
 
 /**
- * Icon mapping for individual skills
- * Maps technology names to their respective brand/technology icons
- */
-const skillIconMap: {
-  [key: string]: React.ComponentType<{ size?: number; className?: string }>;
-} = {
-  React: IconBrandReact,
-  "Next.js": IconBrandNextjs,
-  TypeScript: IconBrandTypescript,
-  JavaScript: IconBrandJavascript,
-  HTML: IconBrandHtml5,
-  CSS: IconBrandCss3,
-  "Tailwind CSS": IconBrandTailwind,
-  "Node.js": IconBrandNodejs,
-  Python: IconBrandPython,
-  Java: IconBrandJava,
-  Git: IconBrandGit,
-  GitHub: IconBrandGithub,
-  Docker: IconBrandDocker,
-  Figma: IconBrandFigma,
-  MySQL: IconBrandMysql,
-  PostgreSQL: IconBrandPostgresql,
-  MongoDB: IconDatabase,
-  "REST API": IconApi,
-  Bootstrap: IconBrandBootstrap,
-};
-
-/**
  * Skills Section Component
  * Displays a modern, responsive grid of skills grouped by categories
  * Features hover animations, accessibility tags, and professional styling
@@ -85,8 +38,9 @@ export function Skills() {
     >
       {/* Background decorative elements for visual depth */}
       <div className="absolute inset-0 -z-10" aria-hidden="true">
-        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-accentColors-primary/5 rounded-full filter blur-3xl opacity-40 animate-moveHorizontal will-change-transform" />
-        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-accentColors-highlight/5 rounded-full filter blur-3xl opacity-30 animate-moveInCircle will-change-transform" />
+        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-accentColors-primary/10 rounded-full filter blur-3xl opacity-50 animate-moveHorizontal will-change-transform" />
+        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-accentColors-highlight/10 rounded-full filter blur-3xl opacity-40 animate-moveInCircle will-change-transform" />
+        <div className="absolute top-2/3 right-1/3 w-80 h-80 bg-purple-500/10 rounded-full filter blur-3xl opacity-30 animate-pulse" />
       </div>
 
       <div className="max-w-7xl mx-auto">
@@ -137,14 +91,14 @@ export function Skills() {
               >
                 {/* Category Header */}
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="p-3 bg-gradient-to-br from-accentColors-primary/20 to-accentColors-highlight/20 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                  <div className="p-3 bg-gradient-to-br from-accentColors-primary/30 to-accentColors-highlight/30 rounded-xl group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-accentColors-primary/30 transition-all duration-300">
                     <CategoryIcon
                       size={28}
-                      className="text-accentColors-primary"
+                      className="text-accentColors-primary drop-shadow-lg"
                       aria-hidden="true"
                     />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white">
+                  <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-accentColors-primary group-hover:to-accentColors-highlight transition-all duration-300">
                     {category.category}
                   </h3>
                 </div>
@@ -156,9 +110,6 @@ export function Skills() {
                   aria-label={`${category.category} list`}
                 >
                   {category.skills.map((skill, skillIndex) => {
-                    // Get the icon component for this skill
-                    const SkillIcon = skillIconMap[skill.name] || IconCode;
-
                     return (
                       <motion.div
                         key={skill.name}
@@ -170,7 +121,12 @@ export function Skills() {
                         }}
                         viewport={{ once: true }}
                         whileHover={{ scale: 1.05, y: -4 }}
-                        className="bg-zinc-900/60 p-4 rounded-xl border border-zinc-700/50 hover:border-accentColors-primary/50 hover:bg-zinc-800/80 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-accentColors-primary/10 group/skill"
+                        style={
+                          {
+                            "--skill-color": skill.color || "#00d8ff",
+                          } as React.CSSProperties
+                        }
+                        className="bg-zinc-900/60 p-4 rounded-xl border border-zinc-700/50 hover:border-[var(--skill-color)] hover:bg-zinc-800/80 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-[var(--skill-color)]/20 group/skill"
                         role="listitem"
                         tabIndex={0}
                         aria-label={`${skill.name} - Proficiency ${skill.level}%`}
@@ -181,13 +137,17 @@ export function Skills() {
                         }}
                       >
                         <div className="flex flex-col items-center text-center gap-2">
-                          {/* Skill Icon */}
-                          <div className="p-2.5 bg-zinc-800/80 rounded-lg group-hover/skill:bg-accentColors-primary/10 transition-colors duration-300">
-                            <SkillIcon
-                              size={32}
-                              className="text-zinc-400 group-hover/skill:text-accentColors-primary transition-colors duration-300"
-                              aria-hidden="true"
-                            />
+                          {/* Skill Icon - Devicon */}
+                          <div className="p-2.5 bg-zinc-800/80 rounded-lg group-hover/skill:bg-[var(--skill-color)]/10 transition-colors duration-300">
+                            {skill.devicon ? (
+                              <i
+                                className={`${skill.devicon} colored text-[40px] group-hover/skill:scale-110 transition-transform duration-300`}
+                                style={{ color: skill.color }}
+                                aria-hidden="true"
+                              />
+                            ) : (
+                              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-zinc-600 to-zinc-700" />
+                            )}
                           </div>
 
                           {/* Skill Name */}
@@ -213,12 +173,20 @@ export function Skills() {
                                   delay: 0.5 + skillIndex * 0.1,
                                 }}
                                 viewport={{ once: true }}
-                                className="h-full bg-gradient-to-r from-accentColors-primary to-accentColors-highlight rounded-full"
+                                style={{
+                                  background: `linear-gradient(90deg, ${
+                                    skill.color || "#00d8ff"
+                                  }, ${
+                                    skill.color ? `${skill.color}dd` : "#0ff"
+                                  })`,
+                                }}
+                                className="h-full rounded-full shadow-sm"
                               />
                             </div>
                             {/* Proficiency Percentage */}
                             <span
-                              className="text-xs text-zinc-500 mt-1 block group-hover/skill:text-accentColors-primary/80 transition-colors duration-300"
+                              className="text-xs text-zinc-500 mt-1 block group-hover/skill:text-[var(--skill-color)] transition-colors duration-300"
+                              style={{ color: "inherit" }}
                               aria-hidden="true"
                             >
                               {skill.level}%

@@ -34,10 +34,19 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.svg" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#18181b" /> {/* Updated to zinc theme color */}
+        <meta name="theme-color" content="#18181b" />{" "}
+        {/* Updated to zinc theme color */}
         <link rel="manifest" href="/manifest.json" />
+        {/* Devicon for colored brand logos */}
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+        />
       </head>
-      <body className={`${inter.className} bg-zinc-50 dark:bg-zinc-900 antialiased`}>
+      <body
+        className={`${inter.className} bg-zinc-50 dark:bg-zinc-900 antialiased`}
+      >
         <div id="content-container" className="content-container">
           {children}
           <ScrollToTop />
