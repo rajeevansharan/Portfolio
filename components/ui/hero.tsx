@@ -93,13 +93,6 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-wrap gap-3 sm:gap-4"
           >
-            <Link
-              href="#projects"
-              className="bg-gradient-to-r from-accentColors-primary to-accentColors-secondary hover:from-accentColors-secondary hover:to-accentColors-primary text-white px-6 py-3 rounded-lg font-medium transition-all duration-500 flex items-center gap-2 shadow-lg shadow-accentColors-primary/20 hover:shadow-accentColors-primary/30"
-            >
-              {heroContent.ctaText}
-              <IconArrowDown className="h-4 w-4" />
-            </Link>
 
             <Link
               href="#contact"
@@ -111,7 +104,7 @@ export function Hero() {
             <a
               href="/cv.pdf"
               download="Rajeevan_Sharan_CV.pdf"
-              className="border border-accentColors-accent/30 hover:border-accentColors-accent/80 bg-accentColors-accent/10 hover:bg-accentColors-accent/20 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 shadow-lg shadow-accentColors-accent/5 hover:shadow-accentColors-accent/20"
+              className="border border-accentColors-primary/30 hover:border-accentColors-primary/80 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-accentColors-primary/10 shadow-lg shadow-accentColors-primary/5 flex items-center gap-2 hover:shadow-accentColors-primary/20"
             >
               Download CV
               <IconDownload className="h-4 w-4" />
