@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { IconArrowDown } from "@tabler/icons-react";
+import { IconArrowDown, IconDownload } from "@tabler/icons-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useInView } from "framer-motion";
@@ -107,6 +107,15 @@ export function Hero() {
             >
               {heroContent.contactText}
             </Link>
+
+            <a
+              href="/cv.pdf"
+              download="Rajeevan_Sharan_CV.pdf"
+              className="border border-accentColors-accent/30 hover:border-accentColors-accent/80 bg-accentColors-accent/10 hover:bg-accentColors-accent/20 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 shadow-lg shadow-accentColors-accent/5 hover:shadow-accentColors-accent/20"
+            >
+              Download CV
+              <IconDownload className="h-4 w-4" />
+            </a>
           </motion.div>
         </div>
 
