@@ -1,18 +1,37 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { IconArrowDown, IconDownload } from "@tabler/icons-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useInView } from "framer-motion";
-import { heroContent } from "@/data";
+import { heroContent as defaultHero, aboutContent } from "@/data";
 
 export function Hero() {
   const controls = useAnimation();
+  const [hero, setHero] = useState(defaultHero);
+  const [cvPath, setCvPath] = useState("/cv.pdf");
 
-  // Optimize animations by loading them when component mounts
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [heroRes, aboutRes] = await Promise.all([
+          fetch("/api/admin/files?file=hero.json", { cache: "no-store" }),
+          fetch("/api/admin/files?file=about.json", { cache: "no-store" }),
+        ]);
+
+        const heroData = await heroRes.json();
+        const aboutData = await aboutRes.json();
+
+        if (heroData && !heroData.error) setHero(heroData);
+        if (aboutData && aboutData.cvPath) setCvPath(aboutData.cvPath);
+      } catch (error) {
+        console.error("Failed to fetch hero data", error);
+      }
+    };
+
+    fetchData();
     controls.start({
       opacity: 1,
       y: 0,
@@ -43,7 +62,7 @@ export function Hero() {
             }}
           >
             <p className="text-accentColors-accent mb-4 font-medium tracking-wide inline-block relative">
-              <span className="relative z-10">{heroContent.subtitle}</span>
+              <span className="relative z-10">{hero.subtitle}</span>
               <motion.span
                 className="absolute bottom-0 left-0 h-[6px] bg-accentColors-primary/20 rounded-sm z-0"
                 initial={{ width: 0 }}
@@ -66,9 +85,9 @@ export function Hero() {
             }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6"
           >
-            {heroContent.title.firstName}{" "}
+            {hero.title.firstName}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-accentColors-primary via-accentColors-accent to-accentColors-highlight animate-text-gradient relative inline-block">
-              {heroContent.title.lastName}
+              {hero.title.lastName}
               <motion.span
                 className="absolute -bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-accentColors-primary via-accentColors-accent to-accentColors-highlight"
                 initial={{ scaleX: 0, opacity: 0 }}
@@ -84,7 +103,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-zinc-400 text-base sm:text-lg md:text-xl max-w-3xl mb-6 md:mb-8"
           >
-            {heroContent.description}
+            {hero.description}
           </motion.p>
 
           <motion.div
@@ -93,16 +112,15 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-wrap gap-3 sm:gap-4"
           >
-
             <Link
               href="#contact"
               className="border border-accentColors-primary/30 hover:border-accentColors-primary/80 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-accentColors-primary/10 shadow-lg shadow-accentColors-primary/5 hover:shadow-accentColors-primary/20"
             >
-              {heroContent.contactText}
+              {hero.contactText}
             </Link>
 
             <a
-              href="/cv.pdf"
+              href={cvPath}
               download="Rajeevan_Sharan_CV.pdf"
               className="border border-accentColors-primary/30 hover:border-accentColors-primary/80 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-accentColors-primary/10 shadow-lg shadow-accentColors-primary/5 flex items-center gap-2 hover:shadow-accentColors-primary/20"
             >
@@ -139,7 +157,7 @@ export function Hero() {
 
           <div className="relative h-[400px] w-[300px] md:h-[450px] md:w-[350px] rounded-2xl overflow-hidden z-10">
             <Image
-              src="/hero image.webp"
+              src={hero.imagePath || "/hero image.webp"}
               alt="Developer Portrait"
               fill
               priority
@@ -157,9 +175,7 @@ export function Hero() {
         transition={{ delay: 1, duration: 1 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
       >
-        <span className="text-zinc-500 text-sm mb-2">
-          {heroContent.scrollText}
-        </span>
+        <span className="text-zinc-500 text-sm mb-2">{hero.scrollText}</span>
         <motion.div
           animate={{
             y: [0, 8, 0],

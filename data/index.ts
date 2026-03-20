@@ -20,6 +20,7 @@ interface HeroContent {
   ctaText: string;
   contactText: string;
   scrollText: string;
+  imagePath: string;
 }
 
 interface NavItem {
@@ -63,6 +64,13 @@ interface Education {
   description: string;
 }
 
+interface Experience {
+  title: string;
+  company: string;
+  duration: string;
+  description: string | string[];
+}
+
 interface Skill {
   name: string;
   level: number; // 0-100
@@ -71,6 +79,7 @@ interface Skill {
 }
 
 interface SkillCategory {
+  id?: string | number;
   category: string;
   icon: string; // Icon name as string
   skills: Skill[];
@@ -95,6 +104,7 @@ interface AboutContent {
   educationTitle: string;
   resumeButtonText: string;
   contactButtonText: string;
+  cvPath?: string;
 }
 
 interface ContactContent {
@@ -207,7 +217,8 @@ export const heroContent: HeroContent = {
   description: "Passionate about leveraging Software and Full-Stack Development to build scalable, innovative solutions. Currently pursuing a Bachelor of Science in Information Technology at the University of Moratuwa.",
   ctaText: "View Projects",
   contactText: "Contact Me",
-  scrollText: "Scroll Down"
+  scrollText: "Scroll Down",
+  imagePath: "/hero image.webp"
 };
 
 // Navigation items for sidebar - using icon names as strings
@@ -408,6 +419,30 @@ export const educationData: Education[] = [
     institution: "J/Kokuvil Hindu College",
     duration: "2022",
     description: ""
+  }
+];
+
+// Experience data for the experience section
+export const experienceData: Experience[] = [
+  {
+    title: "Frontend Developer Intern",
+    company: "FAITE",
+    duration: "2025 – Present",
+    description: [
+      "Built responsive React components",
+      "Integrated REST APIs",
+      "Improved UI performance"
+    ]
+  },
+  {
+    title: "Freelance Web Developer",
+    company: "Self-Employed",
+    duration: "2024 – 2025",
+    description: [
+      "Developed websites for small businesses",
+      "Built modern UI using React and Tailwind",
+      "Optimized performance and SEO"
+    ]
   }
 ];
 

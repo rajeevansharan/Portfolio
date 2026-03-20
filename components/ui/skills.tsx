@@ -9,14 +9,15 @@ import {
   IconServer,
 } from "@tabler/icons-react";
 
-import { skillsData, skillsContent } from "@/data";
+import { useState, useEffect } from "react";
+import { skillsData as defaultSkills, skillsContent as defaultContent } from "@/data";
 
 /**
  * Icon mapping for skill categories
  * Maps icon names to their respective Tabler Icons components
  */
 const iconMap: {
-  [key: string]: React.ComponentType<{ size?: number; className?: string }>;
+  [key: string]: any;
 } = {
   IconCode,
   IconDevices,
@@ -30,6 +31,35 @@ const iconMap: {
  * Features hover animations, accessibility tags, and professional styling
  */
 export function Skills() {
+  const [loading, setLoading] = useState(true);
+  const [skills, setSkills] = useState(defaultSkills);
+  const [content, setContent] = useState(defaultContent);
+
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const [skillsRes, aboutRes] = await Promise.all([
+          fetch("/api/admin/files?file=skills.json", { cache: 'no-store' }),
+          fetch("/api/admin/files?file=about.json", { cache: 'no-store' }) // about.json contains skillsTitle we might want to sync
+        ]);
+
+        const skillsData = await skillsRes.json();
+        const aboutData = await aboutRes.json();
+
+        if (Array.isArray(skillsData)) setSkills(skillsData);
+        if (aboutData && aboutData.skillsTitle) {
+          setContent(prev => ({ ...prev, sectionTitle: aboutData.skillsTitle }));
+        }
+      } catch (error) {
+        console.error("Failed to fetch skills", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSkills();
+  }, []);
+
   return (
     <section
       id="skills"
@@ -56,7 +86,7 @@ export function Skills() {
             id="skills-heading"
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 relative inline-block"
           >
-            {skillsContent.sectionTitle}
+            {content.sectionTitle}
             {/* Animated underline */}
             <motion.span
               className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-accentColors-primary via-accentColors-highlight to-accentColors-secondary"
@@ -68,19 +98,19 @@ export function Skills() {
             />
           </h2>
           <p className="text-zinc-400 text-base sm:text-lg max-w-3xl mx-auto mt-6">
-            {skillsContent.description}
+            {content.description}
           </p>
         </motion.div>
 
         {/* Skills Grid - Responsive layout with category grouping */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-          {skillsData.map((category, categoryIndex) => {
+          {skills.map((category, categoryIndex) => {
             // Get the icon component for this category
             const CategoryIcon = iconMap[category.icon] || IconCode;
 
             return (
               <motion.div
-                key={category.category}
+                key={category.id ? String(category.id) : category.category}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
@@ -174,7 +204,7 @@ export function Skills() {
           className="mt-12 text-center"
         >
           <p className="text-zinc-400 text-sm md:text-base">
-            {skillsContent.footer}
+            {content.footer}
           </p>
         </motion.div>
       </div>
