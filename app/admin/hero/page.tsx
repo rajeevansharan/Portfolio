@@ -13,7 +13,7 @@ export default function AdminHeroPage() {
     ctaText: "",
     contactText: "",
     scrollText: "",
-    imagePath: ""
+    imagePath: "",
   });
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
@@ -49,7 +49,10 @@ export default function AdminHeroPage() {
       });
 
       if (res.ok) {
-        setMessage({ type: "success", text: "Hero section updated successfully!" });
+        setMessage({
+          type: "success",
+          text: "Hero section updated successfully!",
+        });
       } else {
         throw new Error("Failed to save");
       }
@@ -77,7 +80,10 @@ export default function AdminHeroPage() {
       const data = await res.json();
       if (data.url) {
         setHero({ ...hero, imagePath: data.url });
-        setMessage({ type: "success", text: "Image uploaded! Remember to save changes." });
+        setMessage({
+          type: "success",
+          text: "Image uploaded! Remember to save changes.",
+        });
       } else {
         throw new Error(data.error || "Upload failed");
       }
@@ -102,14 +108,18 @@ export default function AdminHeroPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-white">Hero Section</h1>
-          <p className="text-zinc-400">Manage the main landing section of your portfolio.</p>
+          <p className="text-zinc-400">
+            Manage the main landing section of your portfolio.
+          </p>
         </div>
       </div>
 
       {message.text && (
         <div
           className={`p-4 rounded-lg mb-6 ${
-            message.type === "success" ? "bg-green-500/10 text-green-400 border border-green-500/20" : "bg-red-500/10 text-red-400 border border-red-500/20"
+            message.type === "success"
+              ? "bg-green-500/10 text-green-400 border border-green-500/20"
+              : "bg-red-500/10 text-red-400 border border-red-500/20"
           }`}
         >
           {message.text}
@@ -119,61 +129,46 @@ export default function AdminHeroPage() {
       <form onSubmit={handleSave} className="space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-4">
-            <h2 className="text-xl font-semibold text-white mb-4">Text Content</h2>
-            
-            <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">Subtitle</label>
-              <input
-                type="text"
-                value={hero.subtitle}
-                onChange={(e) => setHero({ ...hero, subtitle: e.target.value })}
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-1">First Name</label>
-                <input
-                  type="text"
-                  value={hero.title.firstName}
-                  onChange={(e) => setHero({ ...hero, title: { ...hero.title, firstName: e.target.value } })}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-1">Last Name</label>
-                <input
-                  type="text"
-                  value={hero.title.lastName}
-                  onChange={(e) => setHero({ ...hero, title: { ...hero.title, lastName: e.target.value } })}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
-                />
-              </div>
-            </div>
+            <h2 className="text-xl font-semibold text-white mb-4">
+              Text Content
+            </h2>
 
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">Description</label>
+              <label className="block text-sm font-medium text-zinc-400 mb-1">
+                Description
+              </label>
               <textarea
                 value={hero.description}
-                onChange={(e) => setHero({ ...hero, description: e.target.value })}
-                rows={4}
+                onChange={(e) =>
+                  setHero({ ...hero, description: e.target.value })
+                }
+                rows={12}
                 className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 resize-none"
               />
             </div>
           </div>
 
           <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-4">
-            <h2 className="text-xl font-semibold text-white mb-4">Hero Image & Buttons</h2>
-            
+            <h2 className="text-xl font-semibold text-white mb-4">
+              Hero Image
+            </h2>
+
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-2">Hero Image</label>
+              <label className="block text-sm font-medium text-zinc-400 mb-2">
+                Hero Image
+              </label>
               <div className="flex items-center gap-4">
                 <div className="relative w-32 h-32 bg-zinc-800 rounded-lg overflow-hidden border border-zinc-700">
                   {hero.imagePath ? (
-                    <img src={hero.imagePath} alt="Hero" className="w-full h-full object-cover" />
+                    <img
+                      src={hero.imagePath}
+                      alt="Hero"
+                      className="w-full h-full object-cover"
+                    />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-zinc-600">No Image</div>
+                    <div className="w-full h-full flex items-center justify-center text-zinc-600">
+                      No Image
+                    </div>
                   )}
                   {uploading && (
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
@@ -184,39 +179,14 @@ export default function AdminHeroPage() {
                 <label className="flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg cursor-pointer transition-colors">
                   <IconUpload size={18} />
                   <span>Upload</span>
-                  <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
+                  <input
+                    type="file"
+                    className="hidden"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                  />
                 </label>
               </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">Call to Action Text</label>
-              <input
-                type="text"
-                value={hero.ctaText}
-                onChange={(e) => setHero({ ...hero, ctaText: e.target.value })}
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">Contact Button Text</label>
-              <input
-                type="text"
-                value={hero.contactText}
-                onChange={(e) => setHero({ ...hero, contactText: e.target.value })}
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">Scroll Indicator Text</label>
-              <input
-                type="text"
-                value={hero.scrollText}
-                onChange={(e) => setHero({ ...hero, scrollText: e.target.value })}
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
-              />
             </div>
           </div>
         </div>
@@ -227,7 +197,11 @@ export default function AdminHeroPage() {
             disabled={saving}
             className="flex items-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 disabled:opacity-50 text-white font-bold rounded-lg transition-all"
           >
-            {saving ? <IconLoader2 className="animate-spin" size={20} /> : <IconDeviceFloppy size={20} />}
+            {saving ? (
+              <IconLoader2 className="animate-spin" size={20} />
+            ) : (
+              <IconDeviceFloppy size={20} />
+            )}
             {saving ? "Saving..." : "Save Changes"}
           </button>
         </div>

@@ -37,7 +37,9 @@ export function Projects() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch("/api/admin/files?file=projects.json", { cache: 'no-store' });
+        const res = await fetch("/api/admin/files?file=projects.json", {
+          cache: "no-store",
+        });
         const data = await res.json();
 
         // Transform fetched project data to match the UI format
@@ -51,6 +53,7 @@ export function Projects() {
             image: project.image || project.img,
             featured: project.featured,
             githublink: project.githubLink || project.githublink,
+            link: project.liveLink || project.link,
           }),
         );
 
@@ -183,12 +186,12 @@ export function Projects() {
                   key={project.id}
                   variants={projectVariants}
                   whileHover="hover"
-                  className="group"
+                  className="group flex flex-col h-full"
                   onMouseEnter={() => setActiveId(project.id)}
                   onMouseLeave={() => setActiveId(null)}
                 >
-                  <Card className="overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 bg-card/50 backdrop-blur-sm">
-                    <div className="relative aspect-video overflow-hidden">
+                  <Card className="flex flex-col h-full overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 bg-card/50 backdrop-blur-sm">
+                    <div className="relative aspect-video overflow-hidden shrink-0">
                       <Image
                         src={project.image || "/placeholder.svg"}
                         alt={project.title}
@@ -198,7 +201,7 @@ export function Projects() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       <div className="absolute top-4 right-4"></div>
                     </div>
-                    <CardContent className="p-6">
+                    <CardContent className="p-6 flex flex-col flex-grow">
                       <h3 className="text-xl font-semibold text-foreground mb-3">
                         {project.title}
                       </h3>
@@ -219,11 +222,11 @@ export function Projects() {
                           </motion.span>
                         ))}
                       </div>
-                      <div className="flex gap-3">
+                      <div className="flex gap-3 mt-auto pt-4">
                         {/* Primary button: View Project */}
                         <button
                           onClick={() =>
-                            window.open("https://example.com", "_blank")
+                            window.open(project.link || "#", "_blank")
                           }
                           className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-accentColors-primary to-accentColors-secondary text-white font-medium rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
                         >

@@ -14,16 +14,26 @@
     "title": "Learning Management System",
     "description": "Developed a Learning Management System (LMS) for the Mahapola Port & Maritime Academy to replace its manual system. Built the Administrator and Student Dashboards with features for course management, lecturer/student assignment, and attendance tracking. ",
     "image": "/Project2.png",
-    "technologies": ["Next.js", "Tailwind CSS", "TypeScript", "Spring Boot"],
+    "technologies": [
+      "Next.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "Spring Boot"
+    ],
     "featured": true,
-    "githubLink": ""
+    "githubLink": "https://github.com/rajeevansharan/mpma"
   },
   {
     "id": 3,
     "title": "Personal Contact Book",
     "description": "A simple yet comprehensive web application built with Spring Boot for managing personal contacts. Demonstrates Spring Boot concepts including MVC architecture, JPA data persistence, Thymeleaf templating, RESTful endpoints, Dockerized deployment, pagination and responsive web design.",
     "image": "/Project3.png",
-    "technologies": ["Spring Boot" , "HTML" ,  "Bootstrap" , "PostgreSQL"], 
+    "technologies": [
+      "Spring Boot",
+      "HTML",
+      "Bootstrap",
+      "PostgreSQL"
+    ],
     "featured": false,
     "githubLink": "https://github.com/rajeevansharan/PersonalContactBook"
   },
@@ -32,8 +42,24 @@
     "title": "Restaurant Management System",
     "description": "Developing a comprehensive restaurant management system to digitize core restaurant operations including menu management, order processing, and user authentication.",
     "image": "/Project4.png",
-    "technologies": ["Spring Boot", "MySQL"],
+    "technologies": [
+      "Spring Boot",
+      "MySQL"
+    ],
     "featured": false,
     "githubLink": "https://github.com/rajeevansharan/SimpleRestaurantManagementSystem"
+  },
+  {
+    "title": "LearnApp Portfolio",
+    "description": "Developed a portfolio for Learn App educational platform and used Next.js for Frontend and Backend , Implemented proper animation across all pages .",
+    "image": "/uploads/images/Screenshot2026-03-21124547-1774077388839.png",
+    "technologies": [
+      "Next.js",
+      "Framar motion"
+    ],
+    "liveLink": "https://learnapp.lk/",
+    "githubLink": "",
+    "featured": true,
+    "id": "1774077459936"
   }
 ]
