@@ -16,10 +16,8 @@ interface AboutData {
 }
 
 export default function AdminAbout() {
-  const [form, setForm] = useState<AboutData>({
-    sectionTitle: "", subtitle: "", description: "", 
-    skillsTitle: "", experienceTitle: "", educationTitle: "",
-    resumeButtonText: "", contactButtonText: "", cvPath: ""
+  const [form, setForm] = useState<Partial<AboutData>>({
+    cvPath: ""
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -85,7 +83,7 @@ export default function AdminAbout() {
     <div className="space-y-8 max-w-4xl">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
-          About Configuration
+          CV Configuration
         </h1>
       </div>
 
@@ -97,45 +95,7 @@ export default function AdminAbout() {
              </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white border-b border-zinc-800 pb-2">Main Content</h3>
-              <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-1">Section Title</label>
-                <input type="text" required value={form.sectionTitle || ""} onChange={e => setForm({...form, sectionTitle: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 focus:border-orange-500 transition-colors" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-1">Subtitle</label>
-                <input type="text" required value={form.subtitle || ""} onChange={e => setForm({...form, subtitle: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 focus:border-orange-500 transition-colors" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-1">Description</label>
-                <textarea rows={5} required value={form.description || ""} onChange={e => setForm({...form, description: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 focus:border-orange-500 transition-colors" />
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white border-b border-zinc-800 pb-2">Headings & Labels</h3>
-              <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-1">Experience Heading</label>
-                <input type="text" required value={form.experienceTitle || ""} onChange={e => setForm({...form, experienceTitle: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 focus:border-orange-500 transition-colors" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-1">Education Heading</label>
-                <input type="text" required value={form.educationTitle || ""} onChange={e => setForm({...form, educationTitle: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 focus:border-orange-500 transition-colors" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-1">Skills Heading</label>
-                <input type="text" required value={form.skillsTitle || ""} onChange={e => setForm({...form, skillsTitle: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 focus:border-orange-500 transition-colors" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-1">Resume Button Text</label>
-                <input type="text" required value={form.resumeButtonText || ""} onChange={e => setForm({...form, resumeButtonText: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 focus:border-orange-500 transition-colors" />
-              </div>
-            </div>
-          </div>
-
-          <div className="pt-4 border-t border-zinc-800">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-xl space-y-4">
              <h3 className="text-lg font-semibold text-white mb-4">Resume / CV File</h3>
              <div className="flex gap-2 text-zinc-400">
                 <input type="text" placeholder="/uploads/cv/file.pdf" value={form.cvPath || ""} onChange={e => setForm({...form, cvPath: e.target.value})} className="flex-1 bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 focus:border-orange-500 transition-colors" />

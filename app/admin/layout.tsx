@@ -25,8 +25,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: "Projects", href: "/admin/projects", icon: IconBriefcase },
     { name: "Experience", href: "/admin/experience", icon: IconBriefcase },
     { name: "Education", href: "/admin/education", icon: IconBooks },
-    { name: "Skills", href: "/admin/skills", icon: IconCode },
-    { name: "About", href: "/admin/about", icon: IconUser },
+    { name: "CV Upload", href: "/admin/about", icon: IconUser },
   ];
 
   return (

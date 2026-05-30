@@ -16,23 +16,14 @@ export function About() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [aboutRes, eduRes, expRes] = await Promise.all([
-          fetch("/api/admin/files?file=about.json", { cache: 'no-store' }),
-          fetch("/api/admin/files?file=education.json", { cache: 'no-store' }),
-          fetch("/api/admin/files?file=experience.json", { cache: 'no-store' })
-        ]);
+        const aboutRes = await fetch("/api/admin/files?file=about.json", { cache: 'no-store' });
+        const aboutData = await aboutRes.json();
 
-        const [aboutData, eduData, expData] = await Promise.all([
-          aboutRes.json(),
-          eduRes.json(),
-          expRes.json()
-        ]);
-
-        if (aboutData && !aboutData.error) setAbout(aboutData);
-        if (Array.isArray(eduData)) setEducation(eduData);
-        if (Array.isArray(expData)) setExperience(expData);
+        if (aboutData && !aboutData.error && aboutData.cvPath) {
+          setAbout(prev => ({ ...prev, cvPath: aboutData.cvPath }));
+        }
       } catch (error) {
-        console.error("Failed to fetch about data", error);
+        console.error("Failed to fetch cvPath data", error);
       } finally {
         setLoading(false);
       }

@@ -61,5 +61,20 @@
     "githubLink": "",
     "featured": true,
     "id": "1774077459936"
+  },
+  {
+    "title": "Feraix",
+    "description": "Built a Featured Portfolio for Feraix IT company .",
+    "image": "/uploads/images/feraixHome-1780085867782.png",
+    "technologies": [
+      "Next.js",
+      "Framer Motion",
+      "Node.js",
+      "PostgreSQL"
+    ],
+    "liveLink": "https://feraix.com/",
+    "githubLink": "https://github.com/rajeevansharan/Feraix",
+    "featured": true,
+    "id": "1780085893136"
   }
 ]

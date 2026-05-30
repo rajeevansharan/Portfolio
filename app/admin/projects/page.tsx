@@ -24,6 +24,7 @@ export default function AdminProjects() {
   const [form, setForm] = useState<Partial<Project>>({
     title: "", description: "", image: "", technologies: [], liveLink: "", githubLink: "", featured: false
   });
+  const [techInput, setTechInput] = useState("");
 
   useEffect(() => {
     fetchProjects();
@@ -46,11 +47,16 @@ export default function AdminProjects() {
     e.preventDefault();
     setSaving(true);
     try {
+      const formToSave = { 
+        ...form, 
+        technologies: techInput.split(",").map(t => t.trim()).filter(Boolean) 
+      } as Project;
+
       let updatedProjects;
       if (editingId) {
-        updatedProjects = projects.map(p => p.id === editingId ? { ...p, ...form } as Project : p);
+        updatedProjects = projects.map(p => p.id === editingId ? { ...p, ...formToSave } : p);
       } else {
-        const newProject = { ...form, id: Date.now().toString() } as Project;
+        const newProject = { ...formToSave, id: Date.now().toString() };
         updatedProjects = [...projects, newProject];
       }
 
@@ -87,16 +93,19 @@ export default function AdminProjects() {
   const resetForm = () => {
     setEditingId(null);
     setForm({ title: "", description: "", image: "", technologies: [], liveLink: "", githubLink: "", featured: false });
+    setTechInput("");
   };
 
   const editProject = (project: Project) => {
     setEditingId(project.id);
     setForm(project);
+    setTechInput(project.technologies?.join(", ") || "");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;
+    const fileInput = e.target;
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
     formData.append("type", "image");
@@ -106,9 +115,11 @@ export default function AdminProjects() {
       // but this matches the API logic provided.
       const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
       const data = await res.json();
-      if (data.url) setForm({ ...form, image: data.url });
+      if (data.url) setForm(prev => ({ ...prev, image: data.url }));
     } catch (error) {
       console.error("Upload failed", error);
+    } finally {
+      fileInput.value = "";
     }
   };
 
@@ -135,7 +146,7 @@ export default function AdminProjects() {
             </div>
             <div>
               <label className="block text-sm font-medium text-zinc-400 mb-1">Technologies (comma separated)</label>
-              <input type="text" value={form.technologies?.join(", ")} onChange={e => setForm({...form, technologies: e.target.value.split(",").map(t=>t.trim()).filter(Boolean)})} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 focus:border-cyan-500 transition-colors" />
+              <input type="text" value={techInput} onChange={e => setTechInput(e.target.value)} className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 focus:border-cyan-500 transition-colors" />
             </div>
             <div>
               <label className="block text-sm font-medium text-zinc-400 mb-1">Live Demo URL</label>

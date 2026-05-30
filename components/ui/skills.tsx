@@ -35,31 +35,6 @@ export function Skills() {
   const [skills, setSkills] = useState(defaultSkills);
   const [content, setContent] = useState(defaultContent);
 
-  useEffect(() => {
-    const fetchSkills = async () => {
-      try {
-        const [skillsRes, aboutRes] = await Promise.all([
-          fetch("/api/admin/files?file=skills.json", { cache: 'no-store' }),
-          fetch("/api/admin/files?file=about.json", { cache: 'no-store' }) // about.json contains skillsTitle we might want to sync
-        ]);
-
-        const skillsData = await skillsRes.json();
-        const aboutData = await aboutRes.json();
-
-        if (Array.isArray(skillsData)) setSkills(skillsData);
-        if (aboutData && aboutData.skillsTitle) {
-          setContent(prev => ({ ...prev, sectionTitle: aboutData.skillsTitle }));
-        }
-      } catch (error) {
-        console.error("Failed to fetch skills", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchSkills();
-  }, []);
-
   return (
     <section
       id="skills"
