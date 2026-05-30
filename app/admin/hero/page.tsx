@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { IconUpload, IconDeviceFloppy, IconLoader2 } from "@tabler/icons-react";
 
 export default function AdminHeroPage() {
@@ -160,10 +161,11 @@ export default function AdminHeroPage() {
               <div className="flex items-center gap-4">
                 <div className="relative w-32 h-32 bg-zinc-800 rounded-lg overflow-hidden border border-zinc-700">
                   {hero.imagePath ? (
-                    <img
+                    <Image
                       src={hero.imagePath}
                       alt="Hero"
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-zinc-600">
