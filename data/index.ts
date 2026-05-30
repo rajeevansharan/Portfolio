@@ -20,6 +20,7 @@ interface HeroContent {
   ctaText: string;
   contactText: string;
   scrollText: string;
+  imagePath: string;
 }
 
 interface NavItem {
@@ -63,14 +64,22 @@ interface Education {
   description: string;
 }
 
+interface Experience {
+  title: string;
+  company: string;
+  duration: string;
+  description: string | string[];
+}
+
 interface Skill {
   name: string;
   level: number; // 0-100
-  devicon?: string; // Devicon class name
+  svg?: string; // Local SVG file path
   color?: string; // Brand color
 }
 
 interface SkillCategory {
+  id?: string | number;
   category: string;
   icon: string; // Icon name as string
   skills: Skill[];
@@ -95,6 +104,7 @@ interface AboutContent {
   educationTitle: string;
   resumeButtonText: string;
   contactButtonText: string;
+  cvPath?: string;
 }
 
 interface ContactContent {
@@ -207,7 +217,8 @@ export const heroContent: HeroContent = {
   description: "Passionate about leveraging Software and Full-Stack Development to build scalable, innovative solutions. Currently pursuing a Bachelor of Science in Information Technology at the University of Moratuwa.",
   ctaText: "View Projects",
   contactText: "Contact Me",
-  scrollText: "Scroll Down"
+  scrollText: "Scroll Down",
+  imagePath: "/hero image.webp"
 };
 
 // Navigation items for sidebar - using icon names as strings
@@ -333,49 +344,48 @@ export const skillsContent: SkillsContent = {
   footer: "Always learning and exploring new technologies to stay ahead in the ever-evolving tech landscape."
 };
 
-// Skills Data - Organized by categories with Devicon logos and brand colors
+// Skills Data - Organized by categories with local SVG logos and brand colors
 export const skillsData: SkillCategory[] = [
   {
     category: "Frontend Development",
     icon: "IconCode",
     skills: [
-      { name: "React", level: 90, devicon: "devicon-react-original", color: "#61DAFB" },
-      { name: "Next.js", level: 85, devicon: "devicon-nextjs-original", color: "#000000" },
-      { name: "TypeScript", level: 85, devicon: "devicon-typescript-plain", color: "#3178C6" },
-      { name: "JavaScript", level: 90, devicon: "devicon-javascript-plain", color: "#F7DF1E" },
-      { name: "HTML5", level: 95, devicon: "devicon-html5-plain", color: "#E34F26" },
-      { name: "CSS3", level: 90, devicon: "devicon-css3-plain", color: "#1572B6" },
-      { name: "Tailwind CSS", level: 90, devicon: "devicon-tailwindcss-plain", color: "#06B6D4" },
-      { name: "Bootstrap", level: 80, devicon: "devicon-bootstrap-plain", color: "#7952B3" },
+      { name: "React", level: 90, svg: "/skills/react.svg", color: "#61DAFB" },
+      { name: "Next.js", level: 85, svg: "/skills/nextjs.svg", color: "#000000" },
+      { name: "TypeScript", level: 85, svg: "/skills/typescript.svg", color: "#3178C6" },
+      { name: "JavaScript", level: 90, svg: "/skills/javascript.svg", color: "#F7DF1E" },
+      { name: "HTML5", level: 95, svg: "/skills/html5.svg", color: "#E34F26" },
+      { name: "CSS3", level: 90, svg: "/skills/css3.svg", color: "#1572B6" },
+      { name: "Tailwind CSS", level: 90, svg: "/skills/tailwindcss.svg", color: "#06B6D4" },
+      { name: "Bootstrap", level: 80, svg: "/skills/bootstrap.svg", color: "#7952B3" },
     ]
   },
   {
     category: "Backend Development",
     icon: "IconServer",
     skills: [
-      { name: "Node.js", level: 85, devicon: "devicon-nodejs-plain", color: "#339933" },
-      { name: "Java", level: 80, devicon: "devicon-java-plain", color: "#007396" },
-      { name: "Spring Boot", level: 80, devicon: "devicon-spring-plain", color: "#6DB33F" },
-      { name: "Python", level: 75, devicon: "devicon-python-plain", color: "#3776AB" },
-      { name: "PostgreSQL", level: 75, devicon: "devicon-postgresql-plain", color: "#4169E1" },
-      { name: "MySQL", level: 80, devicon: "devicon-mysql-plain", color: "#4479A1" },
-      { name: "MongoDB", level: 70, devicon: "devicon-mongodb-plain", color: "#47A248" },
+      { name: "Node.js", level: 85, svg: "/skills/nodejs.svg", color: "#339933" },
+      { name: "Java", level: 80, svg: "/skills/java.svg", color: "#007396" },
+      { name: "Spring Boot", level: 80, svg: "/skills/spring.svg", color: "#6DB33F" },
+      { name: "PostgreSQL", level: 75, svg: "/skills/postgresql.svg", color: "#4169E1" },
+      { name: "MySQL", level: 80, svg: "/skills/mysql.svg", color: "#4479A1" },
+      { name: "MongoDB", level: 70, svg: "/skills/mongodb.svg", color: "#47A248" },
     ]
   },
   {
     category: "Design & UI/UX",
     icon: "IconPalette",
     skills: [
-      { name: "Figma", level: 85, devicon: "devicon-figma-plain", color: "#F24E1E" },
+      { name: "Figma", level: 85, svg: "/skills/figma.svg", color: "#F24E1E" },
     ]
   },
   {
     category: "Tools & DevOps",
     icon: "IconDevices",
     skills: [
-      { name: "Git", level: 90, devicon: "devicon-git-plain", color: "#F05032" },
-      { name: "GitHub", level: 90, devicon: "devicon-github-original", color: "#181717" },
-      { name: "Docker", level: 70, devicon: "devicon-docker-plain", color: "#2496ED" },
+      { name: "Git", level: 90, svg: "/skills/git.svg", color: "#F05032" },
+      { name: "GitHub", level: 90, svg: "/skills/github.svg", color: "#181717" },
+      { name: "Docker", level: 70, svg: "/skills/docker.svg", color: "#2496ED" },
     ]
   }
 ];
@@ -409,6 +419,30 @@ export const educationData: Education[] = [
     institution: "J/Kokuvil Hindu College",
     duration: "2022",
     description: ""
+  }
+];
+
+// Experience data for the experience section
+export const experienceData: Experience[] = [
+  {
+    title: "Frontend Developer Intern",
+    company: "FAITE",
+    duration: "2025 – Present",
+    description: [
+      "Built responsive React components",
+      "Integrated REST APIs",
+      "Improved UI performance"
+    ]
+  },
+  {
+    title: "Freelance Web Developer",
+    company: "Self-Employed",
+    duration: "2024 – 2025",
+    description: [
+      "Developed websites for small businesses",
+      "Built modern UI using React and Tailwind",
+      "Optimized performance and SEO"
+    ]
   }
 ];
 

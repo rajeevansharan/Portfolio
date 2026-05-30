@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import Image from "next/image";
-import { projects, projectsContent } from "@/data";
+import { projectsContent } from "@/data";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   IconBrandGithub as Github,
@@ -28,65 +28,50 @@ const ProjectCardSkeleton = () => (
   </Card>
 );
 
-// Transform existing project data to match the new format
-const enhancedProjects = projects.map((project) => {
-  // Extract technology names from icon paths
-  const getTechName = (iconPath: string) => {
-    const filename = iconPath.split("/").pop()?.split(".")[0];
-    switch (filename) {
-      case "re":
-        return "React";
-      case "next":
-        return "Next.js";
-      case "tail":
-        return "Tailwind CSS";
-      case "ts":
-        return "TypeScript";
-      case "node":
-        return "Node.js";
-      case "boot":
-        return "SpringBoot";
-      case "html":
-        return "HTML";
-      case "bootstrap":
-        return "Bootstrap";
-      case "postgresql":
-        return "PostgreSQL";
-      default:
-        return filename || "";
-    }
-  };
-
-  // Use featured property from data file
-
-  return {
-    ...project,
-    description: project.des,
-    tags: project.iconLists?.map(getTechName) || [],
-    image: project.img,
-    featured: project.featured,
-  };
-});
-
 export function Projects() {
-  // Only keep the states we need
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | "featured">("all");
   const [activeId, setActiveId] = useState<number | null>(null);
+  const [projectsData, setProjectsData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch("/api/admin/files?file=projects.json", {
+          cache: "no-store",
+        });
+        const data = await res.json();
+
+        // Transform fetched project data to match the UI format
+        const enhanced = (Array.isArray(data) ? data : []).map(
+          (project: any) => ({
+            ...project,
+            // Handle both old and new data structures
+            description: project.description || project.des,
+            tags:
+              project.technologies || project.iconLists || project.tags || [],
+            image: project.image || project.img,
+            featured: project.featured,
+            githublink: project.githubLink || project.githublink,
+            link: project.liveLink || project.link,
+          }),
+        );
+
+        setProjectsData(enhanced);
+      } catch (error) {
+        console.error("Failed to fetch projects", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const filteredProjectsList =
     filter === "all"
-      ? enhancedProjects
-      : enhancedProjects.filter((project) => project.featured);
-
-  useEffect(() => {
-    // Simulate loading for demo purposes
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, []);
+      ? projectsData
+      : projectsData.filter((project) => project.featured);
 
   // Animation variants
   const containerVariants: Variants = {
@@ -201,22 +186,23 @@ export function Projects() {
                   key={project.id}
                   variants={projectVariants}
                   whileHover="hover"
-                  className="group"
+                  className="group flex flex-col h-full"
                   onMouseEnter={() => setActiveId(project.id)}
                   onMouseLeave={() => setActiveId(null)}
                 >
-                  <Card className="overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 bg-card/50 backdrop-blur-sm">
-                    <div className="relative aspect-video overflow-hidden">
+                  <Card className="flex flex-col h-full overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 bg-card/50 backdrop-blur-sm">
+                    <div className="relative aspect-video overflow-hidden shrink-0">
                       <Image
                         src={project.image || "/placeholder.svg"}
                         alt={project.title}
                         fill
+                        unoptimized
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       <div className="absolute top-4 right-4"></div>
                     </div>
-                    <CardContent className="p-6">
+                    <CardContent className="p-6 flex flex-col flex-grow">
                       <h3 className="text-xl font-semibold text-foreground mb-3">
                         {project.title}
                       </h3>
@@ -224,7 +210,7 @@ export function Projects() {
                         {project.description}
                       </p>
                       <div className="flex flex-wrap gap-2 mb-3">
-                        {project.tags.map((tag, index) => (
+                        {project.tags.map((tag: string, index: number) => (
                           <motion.span
                             key={tag}
                             initial={{ opacity: 0, scale: 0.8 }}
@@ -237,15 +223,25 @@ export function Projects() {
                           </motion.span>
                         ))}
                       </div>
-                      <div className="flex gap-3">
+                      <div className="flex gap-3 mt-auto pt-4">
                         {/* Primary button: View Project */}
-                        <button   onClick={() => window.open('https://example.com', '_blank')} className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-accentColors-primary to-accentColors-secondary text-white font-medium rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+                        <button
+                          onClick={() =>
+                            window.open(project.link || "#", "_blank")
+                          }
+                          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-accentColors-primary to-accentColors-secondary text-white font-medium rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                        >
                           <ExternalLink className="w-4 h-4" />
                           View Project
                         </button>
 
                         {/* Secondary button: GitHub */}
-                        <button onClick={() => window.open(project.githublink, '_blank')} className="flex items-center justify-center p-2 bg-zinc-800/70 text-white rounded-lg shadow hover:bg-zinc-700 transition-colors duration-200">
+                        <button
+                          onClick={() =>
+                            window.open(project.githublink, "_blank")
+                          }
+                          className="flex items-center justify-center p-2 bg-zinc-800/70 text-white rounded-lg shadow hover:bg-zinc-700 transition-colors duration-200"
+                        >
                           <Github className="w-5 h-5" />
                         </button>
                       </div>

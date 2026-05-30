@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "title": "Software Engineer Intern",
+    "company": "FAITE",
+    "duration": "2025 – Present",
+    "description": [
+      "Learned new technologies",
+      "Worked on so many projects",
+      "Improved communication skills"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Freelance Web Developer",
+    "company": "Self-Employed",
+    "duration": "2024 – 2026",
+    "description": [
+      "Developed websites for small businesses",
+      "Built modern UI using React and Tailwind",
+      "Optimized performance and SEO"
+    ]
+  }
+]

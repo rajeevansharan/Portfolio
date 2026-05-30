@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "title": "Automatic Medicine Dispenser",
+    "description": "A microcontroller-based device that automates medication management by dispensing accurate doses at scheduled times. It includes temperature monitoring, caregiver notifications, and LED guidance for ease of use.",
+    "image": "/Project1.jpg",
+    "technologies": [],
+    "liveLink": "",
+    "featured": false,
+    "githubLink": ""
+  },
+  {
+    "id": 2,
+    "title": "Learning Management System",
+    "description": "Developed a Learning Management System (LMS) for the Mahapola Port & Maritime Academy to replace its manual system. Built the Administrator and Student Dashboards with features for course management, lecturer/student assignment, and attendance tracking. ",
+    "image": "/Project2.png",
+    "technologies": [
+      "Next.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "Spring Boot"
+    ],
+    "featured": true,
+    "githubLink": "https://github.com/rajeevansharan/mpma"
+  },
+  {
+    "id": 3,
+    "title": "Personal Contact Book",
+    "description": "A simple yet comprehensive web application built with Spring Boot for managing personal contacts. Demonstrates Spring Boot concepts including MVC architecture, JPA data persistence, Thymeleaf templating, RESTful endpoints, Dockerized deployment, pagination and responsive web design.",
+    "image": "/Project3.png",
+    "technologies": [
+      "Spring Boot",
+      "HTML",
+      "Bootstrap",
+      "PostgreSQL"
+    ],
+    "featured": false,
+    "githubLink": "https://github.com/rajeevansharan/PersonalContactBook"
+  },
+  {
+    "id": 4,
+    "title": "Restaurant Management System",
+    "description": "Developing a comprehensive restaurant management system to digitize core restaurant operations including menu management, order processing, and user authentication.",
+    "image": "/Project4.png",
+    "technologies": [
+      "Spring Boot",
+      "MySQL"
+    ],
+    "featured": false,
+    "githubLink": "https://github.com/rajeevansharan/SimpleRestaurantManagementSystem"
+  },
+  {
+    "title": "LearnApp Portfolio",
+    "description": "Developed a portfolio for Learn App educational platform and used Next.js for Frontend and Backend , Implemented proper animation across all pages .",
+    "image": "/uploads/images/Screenshot2026-03-21124547-1774077388839.png",
+    "technologies": [
+      "Next.js",
+      "Framar motion"
+    ],
+    "liveLink": "https://learnapp.lk/",
+    "githubLink": "",
+    "featured": true,
+    "id": "1774077459936"
+  },
+  {
+    "title": "Feraix",
+    "description": "Built a Featured Portfolio for Feraix IT company .",
+    "image": "/uploads/images/feraixHome-1780085867782.png",
+    "technologies": [
+      "Next.js",
+      "Framer Motion",
+      "Node.js",
+      "PostgreSQL"
+    ],
+    "liveLink": "https://feraix.com/",
+    "githubLink": "https://github.com/rajeevansharan/Feraix",
+    "featured": true,
+    "id": "1780085893136"
+  }
+]

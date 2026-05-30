@@ -1,0 +1,15 @@
+{
+  "sectionTitle": "About Me",
+  "subtitle": "MY BACKGROUND",
+  "description": "I am Rajeevan Sharan. I am passionate about learning and exploring new ideas. I enjoy finding creative ways to solve problems and love building things that can make a positive impact. I am curious, motivated, and always eager to grow.",
+  "tabLabels": {
+    "experience": "Experience",
+    "education": "Education"
+  },
+  "skillsTitle": "My Skills",
+  "experienceTitle": "Experience",
+  "educationTitle": "Education",
+  "resumeButtonText": "Download CV",
+  "contactButtonText": "Contact Me",
+  "cvPath": "/uploads/cv/Sharan-1773599441721.pdf"
+}
